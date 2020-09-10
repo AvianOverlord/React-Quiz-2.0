@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+  background-color: navy;
+  color: white;
+  font-size: larger;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body
+{
+  background-color: navy;
+  overflow: hidden;
+  font-size: large;
+}
+
+.navy
+{
+  background-color: navy;
+}
+
+.titleScreen, .endgameScreen, .scoreScreen
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.quizScreen
+{
+    margin-top: 20px;
+}
+
+.startButton
+{
+    margin: 10px;
+}
+
+.answer
+{
+    margin: 10px;
+    text-align: center;
+}
