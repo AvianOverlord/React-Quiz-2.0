@@ -31,21 +31,12 @@ app.use("*", async (req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use(express.static(publicPath));
-
-app.get('/', (req, res) => {
-    res.sendFile(publicPath, "index.html");
-  });
-
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('../client/build'));
+app.use(express.static('../client/build'));
   
-    const path = require('path');
-    app.get('*', (req,res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-    })
-  
-  }
+  const path = require('path');
+  app.get('*', (req,res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
   
 app.get("/api/quizlist", (req,res) => {
   console.log("Recieved Request");
