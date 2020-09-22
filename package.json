@@ -12,7 +12,8 @@
     "client": "react-scripts start",
     "server": "npx nodemon api/server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node api/server.js"
+    "start": "node api/server.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -39,7 +40,8 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "webpack-cli": "^3.3.12"
   },
   "browserslist": {
     "production": [

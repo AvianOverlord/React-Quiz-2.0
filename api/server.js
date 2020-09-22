@@ -29,7 +29,7 @@ app.use("*", async (req, res, next) => {
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.send({ message: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+    res.send(express.static("../client/build"));
   });
 
   if (process.env.NODE_ENV === 'production') {
