@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const reset = false;
+const path = require("path");
 
 const db = require("./models");
 
@@ -12,6 +13,8 @@ const db = require("./models");
 const seed = require("./data/quizdata.json");
 
 const PORT = process.env.PORT || 5000;
+const publicPath = path.join(__dirname, "./public");
+
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {useNewUrlParser: true});
 const mConnection = mongoose.connection;
 console.log("Connection Data:")
@@ -28,8 +31,10 @@ app.use("*", async (req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.use(express.static(publicPath));
+
 app.get('/', (req, res) => {
-    res.send({ message: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+    res.sendFile(publicPath, "index.html");
   });
 
   if (process.env.NODE_ENV === 'production') {
