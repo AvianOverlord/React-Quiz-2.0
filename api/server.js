@@ -30,12 +30,20 @@ app.use("*", async (req, res, next) => {
 })
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "../src/build")));
 
-app.use(express.static('../client/build'));
-  
-app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-})
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'src/build'))
+});
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../src/build'));
+
+  const path = require('path');
+  app.get('*', (req,res) => {
+      res.sendFile(path.resolve(__dirname, 'src', 'build', 'index.html'))
+  })
+}
   
 app.get("/api/quizlist", (req,res) => {
   console.log("Recieved Request");
