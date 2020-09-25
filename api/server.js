@@ -15,7 +15,12 @@ const seed = require("./data/quizdata.json");
 const PORT = process.env.PORT || 5000;
 const publicPath = path.join(__dirname, "./public");
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+});
 const mConnection = mongoose.connection;
 console.log("Connection Data:")
 console.log(mConnection.collections);
