@@ -129,6 +129,9 @@ class Manager extends Component{
             case "failure":
                 audioF.play();
                 break;
+
+            default:
+                break;
         }
     }
 

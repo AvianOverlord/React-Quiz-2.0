@@ -1,8 +1,6 @@
-import React, {Component} from "react";
+import React from "react";
 import Question from "../components/question";
 import Timer from "../components/timer";
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
-
 
 class Quiz extends React.Component{
     constructor(props){

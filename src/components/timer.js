@@ -1,10 +1,6 @@
-import React, {Component} from "react";
+import React from "react";
 
 class Timer extends React.Component {
-    constructor(props)
-    {
-        super(props);
-    }
 
     componentDidMount()
     {

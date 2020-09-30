@@ -1,6 +1,4 @@
-import React, {Component} from "react";
-import QuizEnd from "./quizEnd";
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
+import React from "react";
 
 class ScoreDisplay extends React.Component
 {
