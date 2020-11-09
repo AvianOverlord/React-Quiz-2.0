@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "react-scripts start",
-    "server": "npx nodemon api/server.js",
+    "server": "npx api/server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "build": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
@@ -36,7 +36,8 @@
     "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "serve": "^11.3.2"
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
