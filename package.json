@@ -10,9 +10,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "react-scripts start",
-    "server": "npx nodemon api/server.js",
+    "server": "npx nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node api/server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
