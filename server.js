@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(express.static('./build'));
 
 app.get('*', (req,res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, 'build', 'public', 'index.html'))
 })
   
 app.get("/api/quizlist", (req,res) => {
