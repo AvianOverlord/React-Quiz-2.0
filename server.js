@@ -5,12 +5,12 @@ const bodyParser = require('body-parser');
 const reset = false;
 const path = require("path");
 
-const db = require("./models");
+const db = require("./api/models");
 
 // I changed your data file to JSON instead and only used one quiz and one 
 // question for now, just to get things going. You can add in the other data 
 // anytime
-const seed = require("./data/quizdata.json");
+const seed = require("./api/data/quizdata.json");
 
 const PORT = process.env.PORT || 5000;
 const publicPath = path.join(__dirname, "./public");
@@ -44,11 +44,16 @@ app.get('/', (req, res) => {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../src/build'));
 
-  const path = require('path');
-  app.get('*', (req,res) => {
-      res.sendFile(path.resolve(__dirname, 'src', 'build', 'index.html'))
-  })
-}
+// app.use(express.static('./build'));
+//     app.get('*', (req,res) => {
+//       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+//   })
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
   
 app.get("/api/quizlist", (req,res) => {
   console.log("Recieved Request");
