@@ -5,7 +5,7 @@ export default {
     console.log("Started request");
     return axios.get("/api/quizlist").then( payload => {
       console.log(payload);
-      return payload
+      return payload;
     }).catch(err => {
       console.log(err);
     });

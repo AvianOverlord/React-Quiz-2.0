@@ -23,7 +23,6 @@ class Manager extends Component{
         this.returnHome = this.returnHome.bind(this);
         this.showCredits = this.showCredits.bind(this);
         this.playAudio = this.playAudio.bind(this);
-        console.log("Starting manager code.")
         this.getQuizes();
     }
 
