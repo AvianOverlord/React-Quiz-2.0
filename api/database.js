@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
  
 // Replace the following with your Atlas connection string                                                                                                                                        
-const url = "mongodb+srv://WilliamAdmin:kkDaaBmzYA7zd3y@cluster0.ifloy.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const url = ""; //This includes the Atlas password, which I'd prefer not to give out
 const client = new MongoClient(url);
 
 async function run() {
