@@ -12,7 +12,7 @@ const db = require("./api/models");
 // anytime
 const seed = require("./api/data/quizdata.json");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const publicPath = path.join(__dirname, "./public");
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
