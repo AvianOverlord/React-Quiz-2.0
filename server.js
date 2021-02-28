@@ -12,8 +12,7 @@ const db = require("./api/models");
 // anytime
 const seed = require("./api/data/quizdata.json");
 
-const PORT = process.env.PORT;
-const publicPath = path.join(__dirname, "./public");
+const PORT = process.env.PORT || 8080;
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
   useNewUrlParser: true, 
@@ -22,8 +21,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
   useFindAndModify: false
 });
 const mConnection = mongoose.connection;
-console.log("Connection Data:")
-console.log(mConnection.collections);
+// console.log("Connection Data:")
+// console.log(mConnection.collections);
 
 // This will stop you from getting any CORS errors.
 app.use("*", async (req, res, next) => {
