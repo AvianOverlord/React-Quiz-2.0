@@ -11,7 +11,7 @@ class Home extends React.Component{
     {
         return(
             <header className="App-header">
-                <h1>William's Quiz Site</h1>
+                <h1>William's Quiz Site (testing)</h1>
                 {this.props.quizList.map((quiz, index) => 
                                 <button key={index} onClick={(e) => this.handleClick(index, e)} className="answer col-3 btn btn-light">{quiz.name}
                                 </button>
