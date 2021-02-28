@@ -35,22 +35,19 @@ app.use("*", async (req, res, next) => {
 })
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "../src/build")));
+app.use(express.static(path.join(__dirname, "public")));
+
+if (process.env.NODE_ENV === 'production') {
+  // app.use(express.static('./build'));
+  app.use(express.static(path.join(__dirname, 'build')));
+}
+
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'src/build'))
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../src/build'));
-
-// app.use(express.static('./build'));
-//     app.get('*', (req,res) => {
-//       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-//   })
-
-app.use(express.static(path.join(__dirname, 'build')));
-  
 app.get("/api/quizlist", (req,res) => {
   console.log("Recieved Request");
   db.QuizData.find().then(data => {
@@ -176,6 +173,5 @@ db.QuizData.exists({}).then(res => {
 // });
 
 app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  })
-}
+  console.log("App listening on PORT " + PORT);
+})
