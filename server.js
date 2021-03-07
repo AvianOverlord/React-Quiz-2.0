@@ -2,17 +2,12 @@ const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const reset = false;
 const path = require("path");
-
 const db = require("./api/models");
-
-// I changed your data file to JSON instead and only used one quiz and one 
-// question for now, just to get things going. You can add in the other data 
-// anytime
 const seed = require("./api/data/quizdata.json");
+const PORT = process.env.PORT || 3001;
 
-const PORT = process.env.PORT || 8080;
+const reset = false;
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
   useNewUrlParser: true, 
@@ -21,12 +16,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
   useFindAndModify: false
 });
 const mConnection = mongoose.connection;
-// console.log("Connection Data:")
-// console.log(mConnection.collections);
 
 // This will stop you from getting any CORS errors.
 app.use("*", async (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://william-quizes.herokuapp.com")
+  res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS")
   res.setHeader("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization")
   res.setHeader("Access-Control-Allow-Credentials", true)
@@ -34,23 +27,18 @@ app.use("*", async (req, res, next) => {
 })
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 if (process.env.NODE_ENV === 'production') {
-  // app.use(express.static('./build'));
-  app.use(express.static(path.join(__dirname, 'build')));
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
-
-
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'src/build'))
+  res.sendFile(path.join(__dirname, "./client/build/index.html"))
 });
 
 app.get("/api/quizlist", (req,res) => {
-  console.log("Recieved Request");
   db.QuizData.find().then(data => {
-    console.log("Passed Data");
     res.json(data);
   }).catch(err => {
     res.json(err);
@@ -58,8 +46,7 @@ app.get("/api/quizlist", (req,res) => {
 });
 
 app.get("/api/quiz/", (req,res) => {
-  console.log("Score Request 5");
-  console.log(req.query);
+  console.log("Score Request 5", req.query);
   db.QuizData.findById(req.query.id).then(data => {
     console.log("Score Request 6");
     console.log(data);
@@ -74,55 +61,46 @@ app.post("/api/score", (req,res) => {
   const newScore = {name: req.body.name, score: req.body.score};
   const quizID = req.body.quizID;
   db.ScoreData.create(newScore).then(()=>{
-    {
-      console.log("Score step #1");
-      db.QuizData.updateOne({_id: quizID}, {$push: {scores: newScore}}).then(data => {
-        console.log("Data check #1");
-        res.json(data);
-      }).catch(err =>{
-        console.log("Data Check #2");
-        res.json(err);
-      })
-    }    
+    console.log("Score step #1");
+    db.QuizData.updateOne({_id: quizID}, {$push: {scores: newScore}}).then(data => {
+      console.log("Data check #1");
+      res.json(data);
+    }).catch(err =>{
+      console.log("Data Check #2");
+      res.json(err);
+    })    
   })
 });
 
 app.post("/api/score/:id-:name-:score", (req,res) => {
   console.log("Score request #1");
   db.ScoreData.create({name: req.params.name, score: req.params.score}).then(({_id})=>{
-    {
-      db.QuizData.findByIdAndUpdate(req.params.id, {$push: {scores: _id}}, {new: true}).then(data => {
-        res.json(data);
-      })
-    }    
+    db.QuizData.findByIdAndUpdate(req.params.id, {$push: {scores: _id}}, {new: true}).then(data => {
+      res.json(data);
+    })   
   });
 });
 
 app.post("/api/score/:id", (req,res) => {
   console.log("Score request 2");
   db.ScoreData.create(req.body).then(({_id})=>{
-    {
-      db.QuizData.findByIdAndUpdate(req.params.id, {$push: {scores: _id}}, {new: true}).then(data => {
-        res.json(data);
-      })
-    }    
+    db.QuizData.findByIdAndUpdate(req.params.id, {$push: {scores: _id}}, {new: true}).then(data => {
+      res.json(data);
+    })  
   })
 })
 
 app.post("/api/score/test", (req,res) => {
   db.ScoreData.create({name: "Test-taker", score: 30}).then(({_id})=>{
-    {
-      db.QuizData.findOneAndUpdate({},{$push: {scores: _id}}, {new: true}).then(data => {
-        res.json(data);
-      })
-    }    
+    db.QuizData.findOneAndUpdate({},{$push: {scores: _id}}, {new: true}).then(data => {
+      res.json(data);
+    })     
   })
 })
 
 app.delete("/api/reset", (req,res) => {
   console.log("Hit reset function.");
-  if(reset)
-  {
+  if(reset){
     mConnection.dropCollection("quizzes").then(data => {
       console.log("Reset step 1");
       mConnection.create(db.QuizData);
@@ -136,14 +114,14 @@ app.delete("/api/reset", (req,res) => {
       console.log(err);
     });
   }
-  else
-  {
+
+  else {
     res.send("No reset.");
   }
 })
 
 app.get('*', (req,res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  res.sendFile(path.join(__dirname, "./client/build/index.html"))
 })
 
 /* 
@@ -157,19 +135,14 @@ app.get('*', (req,res) => {
   the data.
 */
 
-db.QuizData.exists({}).then(res => {
-  console.log("Did quiz check.");
-  if(!res)
-  {
-    db.QuizData.insertMany(seed).then(()=>{
-         console.log("Data inserted.");
-    });
-  }
-})
-
-// db.QuizData.insertMany(seed).then(()=>{
-//   console.log("Data inserted.");
-// });
+// db.QuizData.exists({}).then(res => {
+//   console.log("Did quiz check.");
+//   if(!res){
+//     db.QuizData.insertMany(seed).then(()=>{
+//       console.log("Data inserted.");
+//     });
+//   }
+// })
 
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
