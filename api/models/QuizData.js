@@ -9,8 +9,4 @@ const QuizSchema = new Schema({
 })
 
 const Quiz = mongoose.model("Quiz", QuizSchema);
-
-// Before you were doing this:
-//    module.exports = QuizSchema;
-// See corrected below. I fixed all models.
 module.exports = Quiz;

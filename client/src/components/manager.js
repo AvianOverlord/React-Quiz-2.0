@@ -8,12 +8,12 @@ import Credits from "../pages/credits";
 import QuizService from "../services/quizService";
 import ScoreService from "../services/scoreService";
 import ResetService from "../services/resetService";
-import Sounds from "../sounds";
+// import Sounds from "../sounds";
 
 class Manager extends Component{
 
     constructor(props){
-        super(props)
+        super()
         this.state = {quizList: [], currentQuiz: {}, currentScore: "", currentPage: "Home", currentName: ""};
         
         this.openQuiz = this.openQuiz.bind(this);
@@ -139,18 +139,19 @@ class Manager extends Component{
     {
         return(
             <div className="manager">
+                <h1>Hello</h1>
                 {this.state.currentPage === "Home" && <Home quizList = {this.state.quizList} openQuiz= {this.openQuiz}/>}
                 {this.state.currentPage === "Start" && <QuizStart quiz={this.state.currentQuiz} startQuiz={this.startQuiz}/>}
                 {this.state.currentPage === "Quiz" && <Quiz quiz={this.state.currentQuiz} endQuiz={this.endQuiz} playAudio={this.playAudio}/>}
                 {this.state.currentPage === "End" && <QuizEnd score={this.state.currentScore} addScore={this.addScore}/>}
                 {this.state.currentPage === "Score" && <ScoreDisplay quiz={this.state.currentQuiz} newName={this.state.currentName} newScore={this.state.currentScore} returnHome={this.returnHome} showCredits={this.showCredits}/>}
                 {this.state.currentPage === "Credits" && <Credits returnHome={this.returnHome}/>}
-                <audio className="successSound">
+                {/* <audio className="successSound">
                     <source src={Sounds.success} type="audio/ogg"></source>
                 </audio>
                 <audio className="failureSound">
                     <source src={Sounds.failure} type="audio/ogg"></source>
-                </audio>
+                </audio> */}
             </div>
         );
     }
