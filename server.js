@@ -7,12 +7,7 @@ const db = require("./api/models");
 const seed = require("./api/data/quizdata.json");
 const PORT = process.env.PORT || 3001;
 
-<<<<<<< HEAD
-const PORT = process.env.PORT || 5000;
-const publicPath = path.join(__dirname, "./public");
-=======
 const reset = false;
->>>>>>> 7a081872ab90252cc7cf07dfbf416d709a67e380
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test', {
   useNewUrlParser: true, 

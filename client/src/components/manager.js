@@ -139,7 +139,6 @@ class Manager extends Component{
     {
         return(
             <div className="manager">
-                <h1>Hello</h1>
                 {this.state.currentPage === "Home" && <Home quizList = {this.state.quizList} openQuiz= {this.openQuiz}/>}
                 {this.state.currentPage === "Start" && <QuizStart quiz={this.state.currentQuiz} startQuiz={this.startQuiz}/>}
                 {this.state.currentPage === "Quiz" && <Quiz quiz={this.state.currentQuiz} endQuiz={this.endQuiz} playAudio={this.playAudio}/>}
